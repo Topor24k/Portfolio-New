@@ -102,11 +102,7 @@ export default function DonatePage() {
       <nav>
         <ul className="nav-links">
           <li><NavLink to="/" className={navClass}>HOME</NavLink></li>
-          <li><NavLink to="/projects" className={navClass}>PROJECTS</NavLink></li>
-          <li><NavLink to="/about" className={navClass}>ABOUT ME</NavLink></li>
-          <li><NavLink to="/blog" className={navClass}>BLOG</NavLink></li>
           <li><NavLink to="/donate" className={navClass}>DONATE</NavLink></li>
-          <li><NavLink to="/contact" className={navClass}>CONTACT</NavLink></li>
         </ul>
       </nav>
 
