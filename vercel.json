@@ -1,0 +1,20 @@
+{
+  "installCommand": "npm --prefix react-migrate install",
+  "buildCommand": "npm --prefix react-migrate run build",
+  "outputDirectory": "react-migrate/dist",
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
+}

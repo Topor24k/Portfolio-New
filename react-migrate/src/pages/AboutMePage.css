@@ -1,0 +1,8 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; }
+nav { width: min(1200px, 92vw); margin: 0 auto; min-height: 110px; display: flex; align-items: center; justify-content: center; }
+.nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+.nav-links a { text-decoration: none; color: #111; }
+.nav-links a.active { color: #ad4242; }
+.simple-page { min-height: 60vh; display: grid; gap: 14px; place-content: center; text-align: center; padding: 20px; }
+.simple-page h1 { color: #ad4242; }
