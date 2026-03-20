@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 
-const requiredEnv = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'TO_EMAIL']
+const requiredEnv = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS']
+const defaultRecipient = 'kayeencampana@gmail.com'
 
 function getMissingEnv() {
   return requiredEnv.filter((key) => !process.env[key])
@@ -77,7 +78,7 @@ export default async function handler(req, res) {
   try {
     await transporter.sendMail({
       from: process.env.FROM_EMAIL || process.env.SMTP_USER,
-      to: process.env.TO_EMAIL,
+      to: process.env.TO_EMAIL || defaultRecipient,
       replyTo: email || undefined,
       subject,
       text: textBody,
