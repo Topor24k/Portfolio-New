@@ -51,6 +51,12 @@ Optional variable:
 
 Use a Gmail App Password (not your normal account password).
 
+Security notes:
+
+- Never commit `.env.local` or real SMTP credentials.
+- Keep `TO_EMAIL` configured in Vercel Environment Variables only.
+- The API now has basic anti-spam protection (rate limit + honeypot + server-side validation).
+
 ## Deploy to Vercel
 
 1. Import this project in Vercel.

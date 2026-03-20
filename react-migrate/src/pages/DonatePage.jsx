@@ -20,7 +20,9 @@ export default function DonatePage() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [isSending, setIsSending] = useState(false)
+  const [website, setWebsite] = useState('')
   const timerRef = useRef(null)
+  const formLoadedAtRef = useRef(Date.now())
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -70,6 +72,8 @@ export default function DonatePage() {
           amount,
           message,
           acknowledge,
+          website,
+          sentAt: formLoadedAtRef.current,
         }),
       })
 
@@ -88,6 +92,8 @@ export default function DonatePage() {
       setMessage('')
       setAcknowledge(true)
       setPurpose('donated')
+      setWebsite('')
+      formLoadedAtRef.current = Date.now()
     } catch (error) {
       setSubmitError(error.message || 'Failed to send message. Please try again.')
     } finally {
@@ -237,6 +243,18 @@ export default function DonatePage() {
             <div className="form-group">
               <label>Message</label>
               <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write your message here…"></textarea>
+            </div>
+
+            <div style={{ display: 'none' }} aria-hidden="true">
+              <label htmlFor="websiteField">Website</label>
+              <input
+                id="websiteField"
+                type="text"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+              />
             </div>
 
             <div className="success-msg" style={{ display: showSuccess ? 'flex' : 'none' }}>
