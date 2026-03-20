@@ -1,0 +1,759 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects & Skills – Kayeen M. Campaña</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Architects+Daughter&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #AD4242;
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray: #666666;
+      --light: #f7f7f7;
+      --border: rgba(0,0,0,0.08);
+    }
+
+    @font-face {
+      font-family: 'AmstelvarAlpha';
+      src: local('Georgia'), local('Times New Roman');
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(173, 66, 66, 0.14), transparent 35%),
+        radial-gradient(circle at 85% 82%, rgba(0, 0, 0, 0.07), transparent 38%),
+        var(--white);
+      font-family: 'AmstelvarAlpha', Georgia, serif;
+      color: var(--black);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    nav {
+      width: min(1200px, 92vw);
+      min-height: 110px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 3vw, 46px);
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 16px;
+      line-height: 1.2;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--red); }
+
+    .blur-el {
+      position: absolute;
+      width: 579px; height: 792px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(102,102,102,0.25) 100%);
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-section {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 86px 0;
+    }
+
+    .section-inner {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 34px;
+      max-width: 760px;
+    }
+
+    .section-label {
+      font-family: 'Architects Daughter', cursive;
+      font-size: 14px;
+      color: var(--red);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      font-family: 'Bakbak One', sans-serif;
+      font-size: clamp(32px, 5vw, 46px);
+      line-height: 1.05;
+      color: var(--red);
+      margin-bottom: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-intro {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4f4f4f;
+      max-width: 760px;
+    }
+
+    #projects { min-height: 100vh; }
+    #projects .blur-el.left  { left: -315px; top: -33px; }
+    #projects .blur-el.right { left: 1060px; top: 500px; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      position: relative;
+      z-index: 2;
+      align-items: stretch;
+    }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      border-color: rgba(173,66,66,0.2);
+    }
+
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-card.featured {
+      grid-column: span 2;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .card-github-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #888;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .card-github-link:hover { color: var(--red); border-color: var(--red); }
+
+    .card-title {
+      font-family: 'Bakbak One', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #444;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--light);
+      color: #555;
+      border: 1px solid var(--border);
+      font-weight: 700;
+    }
+
+    .tag.red { background: #fff0f0; color: var(--red); border-color: rgba(173,66,66,0.2); }
+    .tag.blue { background: #f0f4ff; color: #3b5ade; border-color: rgba(59,90,222,0.2); }
+    .tag.green { background: #f0fff4; color: #277a4f; border-color: rgba(39,122,79,0.2); }
+    .tag.purple { background: #f7f0ff; color: #7c3aed; border-color: rgba(124,58,237,0.2); }
+    .tag.orange { background: #fff7f0; color: #c45e1a; border-color: rgba(196,94,26,0.2); }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: #7a7a7a;
+      letter-spacing: 0.04em;
+    }
+
+    .lang-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lang-dot {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+
+    #skills {
+      background: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(2px);
+    }
+
+    .page-footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 13px;
+      color: #666;
+      letter-spacing: 0.06em;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    #skills .blur-el.left  { left: -315px; top: -100px; }
+    #skills .blur-el.right { left: 1060px; top: 400px; }
+
+    .skills-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+    }
+
+    .skill-category {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .skill-cat-title {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #999;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .skill-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+
+    .skill-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-color: var(--red);
+    }
+
+    .skill-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .skill-bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skill-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .skill-bar-label {
+      width: 170px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: #555;
+      flex-shrink: 0;
+    }
+
+    .skill-bar-track {
+      flex: 1;
+      height: 6px;
+      background: #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      background: var(--red);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 1s ease;
+    }
+
+    .skill-bar-fill.animated { transform: scaleX(1); }
+
+    .skill-bar-pct {
+      font-size: 12px;
+      color: #aaa;
+      width: 36px;
+      text-align: right;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1100px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card.featured { grid-column: span 2; }
+    }
+    @media (max-width: 700px) {
+      .page-section { padding: 60px 0; }
+      .nav-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+      nav { min-height: auto; padding: 20px 0; }
+      .section-header { margin-bottom: 24px; }
+      .section-intro { font-size: 15px; line-height: 1.6; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .skill-category { padding: 18px; }
+      .skill-bar-item { flex-wrap: wrap; gap: 10px; }
+      .skill-bar-label { width: 100%; }
+      .skill-bar-pct { width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <ul class="nav-links">
+    <li><a href="Home.html">HOME</a></li>
+    <li><a href="ProjectSkills.html" class="active">PROJECTS</a></li>
+    <li><a href="AboutMe.html">ABOUT ME</a></li>
+    <li><a href="Blog.html">BLOG</a></li>
+    <li><a href="Donate.html">DONATE</a></li>
+    <li><a href="Contact.html">CONTACT</a></li>
+  </ul>
+</nav>
+
+<section class="page-section" id="projects">
+  <div class="blur-el left"></div>
+  <div class="blur-el right"></div>
+
+  <div class="section-inner">
+
+  <div class="section-header fade-up">
+    <p class="section-label">— what i've built</p>
+    <h2 class="section-title" style="transition-delay:.1s;">PROJECTS</h2>
+    <p class="section-intro">Selected projects that reflect my work in full-stack web development, user experience, and production-ready systems.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card featured fade-up" style="transition-delay:.15s;">
+      <div class="card-header">
+        <div class="card-icon" style="background:#fff0f0;">🍳</div>
+        <a href="https://github.com/Topor24k/ProCook--Laravel" target="_blank" class="card-github-link">View on GitHub</a>
+      </div>
+      <p class="card-title">ProCook — Recipe Manager (Laravel)</p>
+      <p class="card-desc">
+        A full-featured recipe management web application where users can publish, browse, edit, and delete their own recipes. Includes a card-based layout, ingredient management with measurements & allergen info, cuisine categorization, and a personal recipe dashboard. Built with full OOP principles and CRUD architecture.
+      </p>
+      <div class="card-tags">
+        <span class="tag red">Laravel 10</span>
+        <span class="tag red">PHP 8.1+</span>
+        <span class="tag blue">MySQL</span>
+        <span class="tag">Blade</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">CRUD</span>
+        <span class="tag">Auth</span>
+      </div>
+      <div class="card-footer">
+        <div class="lang-dots">
+          <span class="lang-dot"><span class="dot" style="background:#f7df1e;"></span> JS 44.9%</span>
+          <span class="lang-dot"><span class="dot" style="background:#777bb4;"></span> PHP 35.0%</span>
+          <span class="lang-dot"><span class="dot" style="background:#264de4;"></span> CSS 18.4%</span>
+        </div>
+        <span>63 commits</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-up" style="transition-delay:.2s;">
+      <div class="card-header">
+        <div class="card-icon" style="background:#f7f0ff;">🐍</div>
+        <a href="https://github.com/Topor24k/ProCook--Python" target="_blank" class="card-github-link">GitHub</a>
+      </div>
+      <p class="card-title">ProCook — Recipe Manager (Python)</p>
+      <p class="card-desc">
+        A full-stack rebuild of ProCook with a Python/Flask backend and React frontend. Features session auth, rating system, nested comments, image upload, bookmarks, and a PostgreSQL database via Flask-SQLAlchemy.
+      </p>
+      <div class="card-tags">
+        <span class="tag purple">Python</span>
+        <span class="tag purple">Flask</span>
+        <span class="tag blue">PostgreSQL</span>
+        <span class="tag green">React 18</span>
+        <span class="tag orange">Tailwind CSS</span>
+        <span class="tag">Vite</span>
+        <span class="tag">Axios</span>
+      </div>
+      <div class="card-footer">
+        <div class="lang-dots">
+          <span class="lang-dot"><span class="dot" style="background:#f7df1e;"></span> JS 58.2%</span>
+          <span class="lang-dot"><span class="dot" style="background:#264de4;"></span> CSS 23.3%</span>
+          <span class="lang-dot"><span class="dot" style="background:#3776ab;"></span> Py 18.4%</span>
+        </div>
+        <span>69 commits</span>
+      </div>
+    </div>
+
+    <div class="project-card featured fade-up" style="transition-delay:.25s;">
+      <div class="card-header">
+        <div class="card-icon" style="background:#f0fff4;">🎓</div>
+        <a href="https://github.com/Topor24k/LiynMar-Online-Tutorial-Services" target="_blank" class="card-github-link">View on GitHub</a>
+      </div>
+      <p class="card-title">LiynMar Online Tutorial Services</p>
+      <p class="card-desc">
+        A complete tutorial management system with role-based access control for Admins, Teacher Managers, and Booking Managers. Features a live analytics dashboard with 4 interactive graphs, teacher profiles with session tracking (6 status codes), flexible booking system, student management, and smart multi-field search.
+      </p>
+      <div class="card-tags">
+        <span class="tag green">React 18</span>
+        <span class="tag green">React Router</span>
+        <span class="tag green">React Query</span>
+        <span class="tag">Vite</span>
+        <span class="tag">CSS3</span>
+        <span class="tag blue">Node.js</span>
+        <span class="tag blue">Express</span>
+        <span class="tag blue">MongoDB</span>
+        <span class="tag">JWT</span>
+        <span class="tag">RBAC</span>
+      </div>
+      <div class="card-footer">
+        <div class="lang-dots">
+          <span class="lang-dot"><span class="dot" style="background:#f7df1e;"></span> JS 67.9%</span>
+          <span class="lang-dot"><span class="dot" style="background:#264de4;"></span> CSS 32.0%</span>
+        </div>
+        <span>78 commits · ⭐ 1</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-up" style="transition-delay:.3s;">
+      <div class="card-header">
+        <div class="card-icon" style="background:#fff7f0;">💇</div>
+        <a href="https://github.com/Topor24k/Jeane-Pierre-Hair---Beauty-Salon" target="_blank" class="card-github-link">GitHub</a>
+      </div>
+      <p class="card-title">Jeane-Pierre Hair & Beauty Salon</p>
+      <p class="card-desc">
+        A modern React-based website for a hair and beauty salon. Built with a component-driven architecture using React and custom CSS, delivering a polished, responsive client-facing experience.
+      </p>
+      <div class="card-tags">
+        <span class="tag green">React</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Responsive</span>
+      </div>
+      <div class="card-footer">
+        <div class="lang-dots">
+          <span class="lang-dot"><span class="dot" style="background:#f7df1e;"></span> JS 65.3%</span>
+          <span class="lang-dot"><span class="dot" style="background:#264de4;"></span> CSS 34.6%</span>
+        </div>
+        <span>93 commits · ⭐ 1</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-up" style="transition-delay:.35s;">
+      <div class="card-header">
+        <div class="card-icon" style="background:#fffbf0;">🍞</div>
+        <a href="https://github.com/Topor24k/U-Best" target="_blank" class="card-github-link">GitHub</a>
+      </div>
+      <p class="card-title">U-BEST — Bakery Equipment E-commerce</p>
+      <p class="card-desc">
+        A production-ready e-commerce platform for Ulas Bakery Equipment & Supplies serving Mindanao. Features user auth, shopping cart, wishlist, order tracking, ratings, admin dashboard, and installment payment (Pautang) support.
+      </p>
+      <div class="card-tags">
+        <span class="tag orange">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript ES6+</span>
+        <span class="tag">Font Awesome</span>
+        <span class="tag">E-commerce</span>
+        <span class="tag">Admin Panel</span>
+      </div>
+      <div class="card-footer">
+        <div class="lang-dots">
+          <span class="lang-dot"><span class="dot" style="background:#f7df1e;"></span> JS 50.0%</span>
+          <span class="lang-dot"><span class="dot" style="background:#264de4;"></span> CSS 26.1%</span>
+          <span class="lang-dot"><span class="dot" style="background:#e34c26;"></span> HTML 23.9%</span>
+        </div>
+        <span>15 commits · ⭐ 1</span>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+</section>
+
+<section class="page-section" id="skills">
+  <div class="blur-el left"></div>
+  <div class="blur-el right"></div>
+
+  <div class="section-inner">
+  <div class="section-header fade-up">
+    <h2 class="section-title" style="transition-delay:.1s;">SKILLS</h2>
+    <p class="section-intro">Core technologies and engineering strengths developed through practical implementation across multiple systems.</p>
+  </div>
+
+  <div class="skills-wrapper">
+
+    <div class="skill-category fade-up" style="transition-delay:.15s;">
+      <p class="skill-cat-title">Frontend Development</p>
+      <div class="skills-row">
+        <div class="skill-pill">🌐 <span>HTML5</span></div>
+        <div class="skill-pill">🎨 <span>CSS3</span></div>
+        <div class="skill-pill">⚡ <span>JavaScript ES6+</span></div>
+        <div class="skill-pill">⚛️ <span>React 18</span></div>
+        <div class="skill-pill">🔀 <span>React Router</span></div>
+        <div class="skill-pill">📡 <span>React Query</span></div>
+        <div class="skill-pill">💨 <span>Tailwind CSS</span></div>
+        <div class="skill-pill">⚙️ <span>Vite</span></div>
+        <div class="skill-pill">🔗 <span>Axios</span></div>
+      </div>
+    </div>
+
+    <div class="skill-category fade-up" style="transition-delay:.2s;">
+      <p class="skill-cat-title">Backend Development</p>
+      <div class="skills-row">
+        <div class="skill-pill">🐘 <span>PHP 8.1+</span></div>
+        <div class="skill-pill">🚀 <span>Laravel 10</span></div>
+        <div class="skill-pill">🐍 <span>Python 3.10+</span></div>
+        <div class="skill-pill">🌶️ <span>Flask</span></div>
+        <div class="skill-pill">🟩 <span>Node.js</span></div>
+        <div class="skill-pill">🛤️ <span>Express.js</span></div>
+        <div class="skill-pill">🔑 <span>JWT Auth</span></div>
+        <div class="skill-pill">🛡️ <span>Laravel Policies</span></div>
+      </div>
+    </div>
+
+    <div class="skill-category fade-up" style="transition-delay:.25s;">
+      <p class="skill-cat-title">Databases</p>
+      <div class="skills-row">
+        <div class="skill-pill">🐬 <span>MySQL / MariaDB</span></div>
+        <div class="skill-pill">🐘 <span>PostgreSQL</span></div>
+        <div class="skill-pill">🍃 <span>MongoDB</span></div>
+        <div class="skill-pill">🔮 <span>Mongoose ODM</span></div>
+        <div class="skill-pill">📦 <span>Flask-SQLAlchemy</span></div>
+        <div class="skill-pill">🗃️ <span>Eloquent ORM</span></div>
+      </div>
+    </div>
+
+    <div class="skill-category fade-up" style="transition-delay:.3s;">
+      <p class="skill-cat-title">Tools & Others</p>
+      <div class="skills-row">
+        <div class="skill-pill">🐙 <span>Git / GitHub</span></div>
+        <div class="skill-pill">📦 <span>Composer</span></div>
+        <div class="skill-pill">📦 <span>npm / yarn</span></div>
+        <div class="skill-pill">🎭 <span>Blade Templates</span></div>
+        <div class="skill-pill">🎯 <span>CRUD & OOP</span></div>
+        <div class="skill-pill">🔒 <span>RBAC</span></div>
+        <div class="skill-pill">📱 <span>Responsive Design</span></div>
+        <div class="skill-pill">🖥️ <span>REST APIs</span></div>
+      </div>
+    </div>
+
+    <div class="skill-category fade-up" style="transition-delay:.35s;">
+      <p class="skill-cat-title">Proficiency Overview</p>
+      <div class="skill-bar-group" id="skillBars">
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">JavaScript / React</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.88"></div></div>
+          <span class="skill-bar-pct">88%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">CSS3 / Tailwind</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.85"></div></div>
+          <span class="skill-bar-pct">85%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">PHP / Laravel</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.80"></div></div>
+          <span class="skill-bar-pct">80%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">Python / Flask</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.75"></div></div>
+          <span class="skill-bar-pct">75%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">MySQL / PostgreSQL</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.78"></div></div>
+          <span class="skill-bar-pct">78%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">MongoDB</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.70"></div></div>
+          <span class="skill-bar-pct">70%</span>
+        </div>
+        <div class="skill-bar-item">
+          <span class="skill-bar-label">Node.js / Express</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.72"></div></div>
+          <span class="skill-bar-pct">72%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+</section>
+
+<footer class="page-footer">
+  © 2025 Kayeen M. Campaña · University of Mindanao · BS Computer Science
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.transform = `scaleX(${bar.dataset.w})`;
+          bar.classList.add('animated');
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const skillBarsEl = document.getElementById('skillBars');
+  if (skillBarsEl) barObserver.observe(skillBarsEl);
+</script>
+</body>
+</html>

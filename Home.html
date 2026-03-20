@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kayeen M. Campaña – Web Developer & Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Architects+Daughter&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #AD4242;
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray: #666666;
+    }
+
+    @font-face {
+      font-family: 'AmstelvarAlpha';
+      src: local('Georgia'), local('Times New Roman');
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(173, 66, 66, 0.14), transparent 35%),
+        radial-gradient(circle at 85% 82%, rgba(0, 0, 0, 0.07), transparent 38%),
+        var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'AmstelvarAlpha', Georgia, serif;
+      color: var(--black);
+    }
+
+    nav {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(18px, 3vw, 46px);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 16px;
+      line-height: 1.2;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--red);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a.active { color: var(--red); }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 110px);
+      overflow: hidden;
+      padding-bottom: 40px;
+    }
+
+    .hero-inner {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(320px, 520px) minmax(360px, 1fr);
+      align-items: center;
+      gap: clamp(20px, 5vw, 72px);
+      padding-top: clamp(10px, 2vw, 24px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .ellipse-1,
+    .ellipse-2 {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(110px);
+      opacity: 0.65;
+      z-index: 0;
+      animation: fadeIn 1.1s ease both;
+    }
+
+    .ellipse-1 {
+      left: -260px;
+      top: -150px;
+      background: rgba(102, 102, 102, 0.42);
+    }
+
+    .ellipse-2 {
+      right: -240px;
+      bottom: -210px;
+      background: rgba(173, 66, 66, 0.28);
+      animation-delay: 0.2s;
+    }
+
+    .profile-wrap {
+      width: min(520px, 86vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 36px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #d2d2d2 0%, #f0f0f0 100%);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      animation: slideInLeft 0.8s 0.2s ease forwards;
+    }
+
+    .profile-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 14px;
+      max-width: 700px;
+    }
+
+    .subtitle {
+      font-family: 'Architects Daughter', cursive;
+      font-size: clamp(17px, 2.1vw, 24px);
+      line-height: 1.35;
+      color: var(--black);
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+
+    .name-highlight {
+      color: #AD4242;
+    }
+
+    .title-wd {
+      font-family: 'Bakbak One', sans-serif;
+      font-size: clamp(44px, 7.2vw, 104px);
+      line-height: 1;
+      background: linear-gradient(90deg, #000000 0%, #666666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.65s ease forwards;
+    }
+
+    .title-wds {
+      font-family: 'Bakbak One', sans-serif;
+      font-size: clamp(28px, 4.5vw, 62px);
+      line-height: 1.15;
+      color: var(--black);
+      border: 1px solid var(--black);
+      padding: 8px 18px;
+      width: fit-content;
+      max-width: 100%;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.8s ease forwards;
+    }
+
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.95s ease forwards;
+    }
+
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f3f3;
+      border: 1px solid #ddd;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: #fff;
+      border-color: var(--red);
+    }
+
+    .social-icon svg { width: 26px; height: 26px; }
+
+    .cta-btn {
+      margin-top: 10px;
+      width: 202px;
+      height: 58px;
+      background: var(--red);
+      border-radius: 35px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.7s 1.1s ease forwards;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(173,66,66,0.35);
+      background: #c04848;
+    }
+
+    .cta-btn span {
+      font-size: 16px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-quote {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--black);
+      opacity: 0;
+      animation: fadeIn 1s 1.3s ease forwards;
+      max-width: 560px;
+      text-align: center;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding-top: 8px;
+      }
+
+      .hero-content {
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-quote { text-align: center; }
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        min-height: auto;
+        padding: 22px 0;
+      }
+
+      .nav-links {
+        gap: 14px 20px;
+      }
+
+      .cta-btn {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <ul class="nav-links">
+    <li><a href="Home.html" class="active">HOME</a></li>
+    <li><a href="ProjectSkills.html">PROJECTS</a></li>
+    <li><a href="AboutMe.html">ABOUT ME</a></li>
+    <li><a href="Blog.html">BLOG</a></li>
+    <li><a href="Donate.html">DONATE</a></li>
+    <li><a href="Contact.html">CONTACT</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="ellipse-1"></div>
+  <div class="ellipse-2"></div>
+
+  <div class="hero-inner">
+    <div class="profile-column">
+      <figure class="profile-wrap">
+        <img src="Images/Profile-bw.png" alt="Kayeen Campana profile photo" class="profile-img"/>
+      </figure>
+
+      <p class="footer-quote">
+        Success is not about doing everything perfectly, but about consistently doing what's best.
+      </p>
+    </div>
+
+    <div class="hero-content">
+      <p class="subtitle">My name is <span class="name-highlight">Kayeen M. Campaña</span>, a third-year Computer Science student</p>
+
+      <h1 class="title-wd">WEB DEVELOPER</h1>
+      <h2 class="title-wds">&amp; WEB DESIGNER</h2>
+
+      <div class="socials">
+        <a href="https://www.facebook.com/kayeen.campana" class="social-icon" title="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/topor24k_/" class="social-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="4" stroke="#555" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="#555"/>
+          </svg>
+        </a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" class="social-icon" title="Gmail" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="16" rx="2" stroke="#555" stroke-width="1.8"/>
+            <path d="M2 7l10 7 10-7" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <a href="Donate.html" class="cta-btn">
+        <span>GIVE SUPPORT</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
