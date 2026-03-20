@@ -254,7 +254,7 @@ export default function DonatePage() {
         </div>
       </section>
 
-      <footer className="page-footer">© 2025 Kayeen M. Campana · University of Mindanao · BS Computer Science</footer>
+      <footer className="page-footer">© 2026 Kayeen M. Campana · University of Mindanao · BS Computer Science</footer>
     </>
   )
 }
