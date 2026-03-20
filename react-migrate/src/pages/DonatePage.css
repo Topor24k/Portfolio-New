@@ -455,6 +455,13 @@ nav {
   background: #c04848;
 }
 
+.submit-btn:disabled {
+  background: #b98585;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .success-msg {
   display: none;
   align-items: center;
@@ -465,6 +472,18 @@ nav {
   padding: 16px 20px;
   font-size: 15px;
   color: #166534;
+}
+
+.error-msg {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 15px;
+  color: #9f1239;
 }
 
 .page-footer {

@@ -18,6 +18,8 @@ export default function DonatePage() {
   const [message, setMessage] = useState('')
   const [acknowledge, setAcknowledge] = useState(true)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [isSending, setIsSending] = useState(false)
   const timerRef = useRef(null)
 
   useEffect(() => {
@@ -39,7 +41,9 @@ export default function DonatePage() {
     if (timerRef.current) clearTimeout(timerRef.current)
   }, [])
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
+    if (isSending) return
+
     if (!fullName.trim()) {
       window.alert('Please enter your name.')
       return
@@ -50,15 +54,45 @@ export default function DonatePage() {
       return
     }
 
-    setShowSuccess(true)
-    if (timerRef.current) clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => setShowSuccess(false), 5000)
+    setSubmitError('')
 
-    setFullName('')
-    setEmail('')
-    setAmount('')
-    setMessage('')
-    setAcknowledge(true)
+    try {
+      setIsSending(true)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          purpose,
+          fullName,
+          email,
+          amount,
+          message,
+          acknowledge,
+        }),
+      })
+
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message.')
+      }
+
+      setShowSuccess(true)
+      if (timerRef.current) clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(() => setShowSuccess(false), 5000)
+
+      setFullName('')
+      setEmail('')
+      setAmount('')
+      setMessage('')
+      setAcknowledge(true)
+      setPurpose('donated')
+    } catch (error) {
+      setSubmitError(error.message || 'Failed to send message. Please try again.')
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const isDonated = purpose === 'donated'
@@ -213,7 +247,13 @@ export default function DonatePage() {
               Message sent! I&apos;ll get back to you soon. Thank you! 🙏
             </div>
 
-            <button className="submit-btn" type="button" onClick={sendMessage}>SEND MESSAGE</button>
+            <div className="error-msg" style={{ display: submitError ? 'flex' : 'none' }}>
+              {submitError}
+            </div>
+
+            <button className="submit-btn" type="button" onClick={sendMessage} disabled={isSending}>
+              {isSending ? 'SENDING...' : 'SEND MESSAGE'}
+            </button>
           </div>
         </div>
       </section>

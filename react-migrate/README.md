@@ -1,16 +1,61 @@
-# React + Vite
+# Portfolio React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is ready for Vercel deployment, including a serverless email endpoint used by the Donate page "Message Me" form.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
 
-## React Compiler
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Run development server:
 
-## Expanding the ESLint configuration
+```bash
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. Build production bundle:
+
+```bash
+npm run build
+```
+
+## Email setup for Donate "Message Me"
+
+The form posts to `POST /api/contact` (Vercel serverless function).
+
+1. Copy `.env.example` to `.env.local` for local testing.
+2. Fill values with your SMTP details.
+
+Required variables:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `TO_EMAIL`
+
+Optional variable:
+
+- `FROM_EMAIL` (defaults to `SMTP_USER`)
+
+### Gmail example
+
+- `SMTP_HOST=smtp.gmail.com`
+- `SMTP_PORT=465`
+- `SMTP_USER=yourgmail@gmail.com`
+- `SMTP_PASS=your-gmail-app-password`
+- `TO_EMAIL=yourgmail@gmail.com`
+
+Use a Gmail App Password (not your normal account password).
+
+## Deploy to Vercel
+
+1. Import this project in Vercel.
+2. Set the project root directory to `react-migrate`.
+3. Add all environment variables from `.env.example` in Vercel Project Settings -> Environment Variables.
+4. Deploy.
+
+The included `vercel.json` handles SPA routing and keeps API routes working.
