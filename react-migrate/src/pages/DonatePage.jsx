@@ -180,7 +180,7 @@ export default function DonatePage() {
         </div>
       </section>
 
-      <section className="page-section" id="message">
+      <section className="page-section" id="message-section">
         <div className="blur-el left"></div>
         <div className="blur-el right"></div>
 

@@ -309,8 +309,8 @@ nav {
   line-height: 24px;
 }
 
-#message .blur-el.left  { left: -315px; top: -33px; }
-#message .blur-el.right { left: 1060px; top: 682px; }
+#message-section .blur-el.left  { left: -315px; top: -33px; }
+#message-section .blur-el.right { left: 1060px; top: 682px; }
 
 .message-body {
   position: relative;
