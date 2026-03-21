@@ -194,7 +194,7 @@ export default function DonatePage() {
 
           <div className="message-form fade-up" style={{ transitionDelay: '0.2s' }}>
             <div className="form-group">
-              <label htmlFor="purposeDonated">What is this message about?</label>
+              <p>What is this message about?</p>
               <div className="purpose-row">
                 <button id="purposeDonated" name="purpose" type="button" className={`purpose-btn ${purpose === 'donated' ? 'selected' : ''}`} onClick={() => setPurpose('donated')}>
                   I donated &amp;<br/>want to be known
