@@ -51,11 +51,6 @@ export default function DonatePage() {
       return
     }
 
-    if (!message.trim()) {
-      window.alert('Please write a message.')
-      return
-    }
-
     setSubmitError('')
 
     try {
@@ -199,15 +194,15 @@ export default function DonatePage() {
 
           <div className="message-form fade-up" style={{ transitionDelay: '0.2s' }}>
             <div className="form-group">
-              <label>What is this message about?</label>
+              <label htmlFor="purposeDonated">What is this message about?</label>
               <div className="purpose-row">
-                <button type="button" className={`purpose-btn ${purpose === 'donated' ? 'selected' : ''}`} onClick={() => setPurpose('donated')}>
+                <button id="purposeDonated" name="purpose" type="button" className={`purpose-btn ${purpose === 'donated' ? 'selected' : ''}`} onClick={() => setPurpose('donated')}>
                   I donated &amp;<br/>want to be known
                 </button>
-                <button type="button" className={`purpose-btn ${purpose === 'inquiry' ? 'selected' : ''}`} onClick={() => setPurpose('inquiry')}>
+                <button id="purposeInquiry" name="purpose" type="button" className={`purpose-btn ${purpose === 'inquiry' ? 'selected' : ''}`} onClick={() => setPurpose('inquiry')}>
                   I have an<br/>inquiry
                 </button>
-                <button type="button" className={`purpose-btn ${purpose === 'other' ? 'selected' : ''}`} onClick={() => setPurpose('other')}>
+                <button id="purposeOther" name="purpose" type="button" className={`purpose-btn ${purpose === 'other' ? 'selected' : ''}`} onClick={() => setPurpose('other')}>
                   Other<br/>concern
                 </button>
               </div>
@@ -215,20 +210,20 @@ export default function DonatePage() {
 
             <div className="form-row">
               <div className="form-group">
-                <label>Full Name</label>
-                <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Juan Dela Cruz"/>
+                <label htmlFor="fullName">Full Name</label>
+                <input id="fullName" name="fullName" autoComplete="name" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Juan Dela Cruz"/>
               </div>
               <div className="form-group">
-                <label>Email (optional)</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com"/>
+                <label htmlFor="email">Email (optional)</label>
+                <input id="email" name="email" autoComplete="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com"/>
               </div>
             </div>
 
             {isDonated && (
               <>
                 <div className="form-group" id="amountRow">
-                  <label>Amount Donated</label>
-                  <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="e.g. ₱100"/>
+                  <label htmlFor="amount">Amount Donated</label>
+                  <input id="amount" name="amount" autoComplete="off" type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="e.g. ₱100"/>
                 </div>
 
                 <div className="acknowledge-row" id="ackRow">
@@ -241,14 +236,15 @@ export default function DonatePage() {
             )}
 
             <div className="form-group">
-              <label>Message</label>
-              <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write your message here…"></textarea>
+              <label htmlFor="message">Message</label>
+              <textarea id="message" name="message" autoComplete="off" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write your message here…"></textarea>
             </div>
 
             <div style={{ display: 'none' }} aria-hidden="true">
               <label htmlFor="websiteField">Website</label>
               <input
                 id="websiteField"
+                name="website"
                 type="text"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}

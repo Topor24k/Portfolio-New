@@ -104,8 +104,8 @@ export default async function handler(req, res) {
   const messageClean = normalizeText(message, maxMessageLength)
   const purposeClean = ['donated', 'inquiry', 'other'].includes(purpose) ? purpose : 'other'
 
-  if (!fullNameClean || !messageClean) {
-    return res.status(400).json({ error: 'Full name and message are required.' })
+  if (!fullNameClean) {
+    return res.status(400).json({ error: 'Full name is required.' })
   }
 
   if (emailClean && !isValidEmail(emailClean)) {
@@ -142,14 +142,14 @@ export default async function handler(req, res) {
     `Acknowledge Publicly: ${acknowledge ? 'Yes' : 'No'}`,
     '',
     'Message:',
-    messageClean,
+    messageClean || 'No message provided.',
   ].join('\n')
 
   const htmlName = escapeHtml(fullNameClean)
   const htmlEmail = escapeHtml(emailClean || 'Not provided')
   const htmlPurpose = escapeHtml(safePurposeMap[purposeClean])
   const htmlAmount = escapeHtml(amountClean || 'N/A')
-  const htmlMessage = escapeHtml(messageClean).replace(/\n/g, '<br/>')
+  const htmlMessage = escapeHtml(messageClean || 'No message provided.').replace(/\n/g, '<br/>')
 
   const htmlBody = `
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #111;">
