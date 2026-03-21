@@ -57,6 +57,11 @@ Security notes:
 - Keep `TO_EMAIL` configured in Vercel Environment Variables only.
 - The API now has basic anti-spam protection (rate limit + honeypot + server-side validation).
 
+Local API testing note:
+
+- If you run only `npm run dev`, Vite serves the frontend but not Vercel serverless routes.
+- To test the form locally, set `VITE_API_BASE_URL` in `.env.local` (example: `http://127.0.0.1:3000` when running `vercel dev`, or your deployed site URL).
+
 ## Deploy to Vercel
 
 1. Import this project in Vercel.

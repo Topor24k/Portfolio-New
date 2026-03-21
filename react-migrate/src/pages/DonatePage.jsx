@@ -55,7 +55,9 @@ export default function DonatePage() {
 
     try {
       setIsSending(true)
-      const response = await fetch('/api/contact', {
+      const configuredApiBase = import.meta.env.VITE_API_BASE_URL?.trim()
+      const apiBase = configuredApiBase ? configuredApiBase.replace(/\/$/, '') : ''
+      const response = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
