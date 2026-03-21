@@ -72,9 +72,23 @@ export default function DonatePage() {
         }),
       })
 
-      const result = await response.json()
+      const rawBody = await response.text()
+      let result = {}
+      if (rawBody) {
+        try {
+          result = JSON.parse(rawBody)
+        } catch {
+          result = {}
+        }
+      }
+
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message.')
+        const fallbackMessage =
+          response.status === 404
+            ? 'Contact API route not found. Use Vercel deployment or run `vercel dev` for local API testing.'
+            : 'Failed to send message.'
+
+        throw new Error(result.error || fallbackMessage)
       }
 
       setShowSuccess(true)
